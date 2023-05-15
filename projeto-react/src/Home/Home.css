@@ -1,0 +1,45 @@
+.home{
+  background-color: rgb(241, 186, 92);
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card{
+  background-color: #fff;
+
+  height: 50%;
+  min-width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  gap:15px; 
+
+  border-radius: 15px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.264);
+
+}
+
+h1{
+  color: #912197;
+}
+
+.link-botao{
+  background-color: #912197;
+  color: #fff;
+  padding: 7px;
+  border-radius: 15px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.264);
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+}
+
+.link-botao:hover{
+  scale:calc(1.03);
+}
