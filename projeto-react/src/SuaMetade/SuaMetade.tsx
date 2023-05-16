@@ -12,35 +12,31 @@ function SuaMetade() {
   }
 
   return (
-    <>
-      <h1>Calculando a probabilidade para o amor...</h1>
+    <div className="probabilidadeAmor">
+      <div className="card">
+        <h1>Calculando</h1>
+        <h2>a probabilidade para</h2> 
+        <h1>para o amor...</h1>
 
-      <label>Qual a sua inicial?</label>
-      <input name="pessoa1" type="text" value={pessoa1} onChange={(event) => setPessoa1(event.target.value)}></input>  
+      <div className="inputs">
+        <div className="input">
+          <label>Qual a sua inicial?</label>
+          <input name="pessoa1" type="text" value={pessoa1} onChange={(event) => setPessoa1(event.target.value)}></input>  
+        </div>
+        <div className="input">
+          <label>Qual a inicial do/da crush?</label>
+          <input name="pessoa2" type="text" value={pessoa2} onChange={(event) => setPessoa2(event.target.value)}></input>            
+        </div>
+      </div>
 
-      <label>Qual a inicial do/da crush?</label>
-      <input name="pessoa2" type="text" value={pessoa2} onChange={(event) => setPessoa2(event.target.value)}></input>  
+        <button onClick={verificaSuaMetade}>Calcular a probabilidade...</button>
 
-      <button onClick={verificaSuaMetade}>Calcular a probabilidade...</button>
-
-      { probabilidade && 
-        <label>A probabilidade é de {probabilidade}</label>
-      }
-
-    </>
+        {  
+          probabilidade != 0? <label>A probabilidade é de {probabilidade}</label> : ''
+        }
+      </div>
+    </div>
   )
 }
 
 export default SuaMetade
-function random(arg0: number, arg1: number): import("react").SetStateAction<number> {
-  throw new Error('Function not implemented.')
-}
-
-function randomNumber(arg0: number, arg1: number) {
-  throw new Error('Function not implemented.')
-}
-
-function randomNumberInRange(arg0: number, arg1: number): import("react").SetStateAction<number> {
-  throw new Error('Function not implemented.')
-}
-
