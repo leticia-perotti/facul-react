@@ -7,6 +7,7 @@ function SuaMetade() {
   const [probabilidade, setProbabilidade] = useState(0)
 
   function verificaSuaMetade(){
+    if (!pessoa1 || !pessoa2) return
     let probabilidade = Math.random() * 100
     setProbabilidade(Math.trunc(probabilidade))
   }
