@@ -1,0 +1,19 @@
+{
+  "produto": [
+    {
+      "id": 1,
+      "nome": "Macarrao",
+      "valor": 10
+    },
+    {
+      "id": 2,
+      "nome": "Feijão",
+      "valor": 5
+    },
+    {
+      "id": 3,
+      "nome": "Filé",
+      "valor": 15
+    }
+  ]
+}

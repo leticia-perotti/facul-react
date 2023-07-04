@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import './App.css';
 import SuaMetade from './SuaMetade/SuaMetade';
 import PedraPapelTesoura from './PedraPapelTesoura/PedraPapelTesoura';
+import ConsumirApi from './ConsumirApi/ConsumirApi';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/imc" Component={Imc} />
         <Route path="/sua-metade" Component={SuaMetade} />
         <Route path="/pedra-papel-tesoura" Component={PedraPapelTesoura} />
+        <Route path="/api-produtos" Component={ConsumirApi} />
       </Routes>
     </BrowserRouter>
 
