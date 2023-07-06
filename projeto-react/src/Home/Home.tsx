@@ -12,7 +12,7 @@ function Home() {
         <Link to="/imc" className="link-botao">IMC</Link>
         <Link to="/sua-metade" className="link-botao">Sua Metade</Link>
         <Link to="/pedra-papel-tesoura" className="link-botao">Pedra - papel - tesoura</Link>
-        <Link to="/api-produtos" className="link-botao">Api - produtos</Link>
+        <Link to="/api-cardapio" className="link-botao">Api - cardápio</Link>
       </div>
     </div>
   )

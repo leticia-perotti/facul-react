@@ -15,7 +15,7 @@ function App() {
         <Route path="/imc" Component={Imc} />
         <Route path="/sua-metade" Component={SuaMetade} />
         <Route path="/pedra-papel-tesoura" Component={PedraPapelTesoura} />
-        <Route path="/api-produtos" Component={ConsumirApi} />
+        <Route path="/api-cardapio" Component={ConsumirApi} />
       </Routes>
     </BrowserRouter>
 

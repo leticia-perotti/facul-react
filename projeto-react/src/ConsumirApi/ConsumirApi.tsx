@@ -1,91 +1,157 @@
 import { useEffect, useState } from 'react'
 import './ConsumirApi.css'
-import axios from 'axios';
-import api, { listProduto, postProduto, putProduto } from './api-service';
-import Listagem from './Listagem';
+import api from './api-service';
+import Listagem from './Tabela/Listagem';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function ConsumirApi() {
-  const [nome, setNome] = useState("")
-  const [valor, setValor] = useState(0)
-  const [id, setId] = useState(0)
-  const [produtos, setProdutos] = useState([])
+  const [itens, setItens] = useState([])
 
-  function salvar(){
+  const [id, setId] = useState(0)
+  const [entrada, setEntrada] = useState("")
+  const [principal, setPrincipal] = useState("")
+  const [sobremesa, setSobremesa] = useState("")
+  const [bebida, setBebida] = useState("")
+  const [valor, setValor] = useState(0)
+
+  const itensCabecalho = ["Id", "Entrada", "Principal", "Sobremesa", "Bebida", "Valor"]
+
+  function salvar(e: { preventDefault: () => void; }){
+    e.preventDefault();
+
+    let valorCardapio = {
+      "id": id == 0? null : id,
+      "entrada": entrada,
+      "principal": principal,
+      "sobremesa": sobremesa,
+      "bebida": bebida,
+      "valor": valor
+    }
     if(id == 0){
-      postProduto(nome || "Sem nome", valor|| 0, id)
+      api.post('/cardapio', valorCardapio)
+      .then(function (response) {
+        atualizaItens()
+        toast.success("Item cadastrado com sucesso!")
+      })
+      .catch(function (error) {
+        toast.error("Erro ao cadastrar o item!")
+      });
     }else{
-      putProduto(nome || "Sem nome", valor|| 0, id)
-      
+      api.put(`/cardapio/${valorCardapio.id}`, valorCardapio)
+      .then(function (response) {
+        atualizaItens()
+        toast.success("Item editado com sucesso!")
+      })
+      .catch(function (error) {
+        toast.error("Erro ao editar o item!")
+      });    
     }
 
-    setNome("")
-    setId(0)
-    setValor(0)
+    limparCadastro()
+  }
 
+  function limparCadastro(){
+    setId(0)
+    setEntrada("")
+    setPrincipal("")
+    setSobremesa("")
+    setBebida("")
+    setValor(0)
   }
   
-  async function atualizaProdutos(){
-    await api.get('/produto')
-      .then((dat: any) => setProdutos(dat.data))
-      console.log(produtos)
+  async function atualizaItens(){
+    await api.get('/cardapio')
+      .then((dat: any) => setItens(dat.data))
+      console.log(itens)
   }
 
   function excluir(id: number){
-    api.delete(`/produto/${id}`).then( (result) => {
+    api.delete(`/cardapio/${id}`).then( (result) => {
       //window.alert("Excluido com sucesso")
-      atualizaProdutos();
+      atualizaItens();
+      toast.success("Item excluido com sucesso!")
   })
   }
 
+  useEffect(() => {
+    atualizaItens();
+  }, []);
+
   async function editar(id: number){
-    await api.get(`/produto/${id}`)
+    await api.get(`/cardapio/${id}`)
       .then((dado: any) => {
         console.log(dado)
-        setNome(dado.data.nome)
-        setValor(dado.data.valor)
         setId(dado.data.id)
+        setEntrada(dado.data.entrada)
+        setPrincipal(dado.data.principal)
+        setSobremesa(dado.data.sobremesa)
+        setBebida(dado.data.bebida)
+        setValor(dado.data.valor)
       });
   }
 
   return (
-    <>
-      <form className="container">
-        <h1>Cadastrando de produtos</h1>
-        <div className="mb-3">
-          <label className="form-label">Nome do produto</label>
-          <input type="text" className="form-control" id="nome" value={nome} aria-describedby="nome"  onChange={(event) => setNome(event.target.value)}/>
+    <div className="container">
+      <form className="row" onSubmit={salvar}>
+        <h1>Cadastrando cardápios do restaurante</h1>
+        <div className="mb-3 col-6">
+          <label className="form-label">Entrada</label>
+          <input type="text" className="form-control" id="entrada" 
+          value={entrada} aria-describedby="entrada" 
+          onChange={(event) => setEntrada(event.target.value)}
+          required
+          />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Valor do produto</label>
-          <input type="number" className="form-control" id="valor" value={valor} aria-describedby="valor"  onChange={(event) => setValor(Number(event.target.value))}/>
+
+        <div className="mb-3 col-6">
+          <label className="form-label">Principal</label>
+          <input type="text" className="form-control" id="principal" 
+          value={principal} aria-describedby="principal" required 
+          onChange={(event) => setPrincipal(event.target.value)}/>
         </div>
 
-        <a className="btn btn-primary" onClick={salvar}>Submit</a>
+        <div className="mb-3 col-4">
+          <label className="form-label">Sobremesa</label>
+          <input type="text" className="form-control" id="sobremesa" 
+          value={sobremesa} aria-describedby="sobremesa" required 
+          onChange={(event) => setSobremesa(event.target.value)}/>
+        </div>
 
-        <Listagem produtos={produtos}/>
+        <div className="mb-3 col-4">
+          <label className="form-label">Bebida</label>
+          <input type="text" className="form-control" id="bebida" 
+          value={bebida} aria-describedby="bebida"  required
+          onChange={(event) => setBebida(event.target.value)}/>
+        </div>
 
-
+        <div className="mb-3 col-4">
+          <label className="form-label">Valor</label>
+          <input type="number" className="form-control" id="valor" 
+          value={valor} aria-describedby="valor"  onChange={(event) => setValor(Number(event.target.value))}
+          required min="1" step="0.01"
+          />
+        </div>
+        <div className="gap-2 d-md-flex justify-content-md-end ">
+          <button type="submit" className="btn btn-success">Enviar</button>
+        </div>
+    
       </form>
+      <div className="col-12 separacao"></div>
+      <div className="gap-2 d-md-flex justify-content-md-end ">
+          <button type="button" className="btn btn-warning" onClick={limparCadastro}>
+            Cadastrar
+          </button>
 
-      <div className='row'>
-      {
-        
-        produtos?.map((dados: any) => {
-          return(
-            <div className="card-produto col-2">
-              <label>Produto: {dados.nome}</label>
-              <label>Valor: {dados.valor}</label>
-              
-              <button onClick={() => editar(dados['id'])} >Editar</button>
-              <button  onClick={() => excluir(dados['id'])} >Excluir</button>
-            </div>
-           
-          )
+          <button type="button" className="btn btn-primary" onClick={atualizaItens}>
+            Pesquisar
+          </button>
+        </div>
 
-        })
-      }
-      </div>
-    </>
+      <Listagem itens={itens} editar={editar} excluir={excluir} itensCabecalho={itensCabecalho}/>
+
+      <ToastContainer />
+    </div>
   )
 }
 

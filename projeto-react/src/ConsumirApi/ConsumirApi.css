@@ -1,0 +1,11 @@
+.separacao{
+    height: .5px;
+    background-color: #888888be;
+    margin: 10px;
+}
+.container{
+    margin-top: 45px;
+}
+h1{
+    margin: 15px;
+}

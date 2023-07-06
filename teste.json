@@ -15,5 +15,39 @@
       "nome": "Filé",
       "valor": 15
     }
+  ],
+  "cardapio": [
+    {
+      "id": 5,
+      "entrada": "Salada de tomate e pão francês",
+      "principal": "Costela",
+      "sobremesa": "Sagu com creme",
+      "bebida": "Gasosa",
+      "valor": 35
+    },
+    {
+      "id": 6,
+      "entrada": "Pão de alho",
+      "principal": "Xixo",
+      "sobremesa": "Bombom",
+      "bebida": "Suco de laranja",
+      "valor": 25
+    },
+    {
+      "id": 7,
+      "entrada": "teste",
+      "principal": "teste",
+      "sobremesa": "teste",
+      "bebida": "teste",
+      "valor": 7
+    },
+    {
+      "id": 8,
+      "entrada": "99",
+      "principal": "9",
+      "sobremesa": "9",
+      "bebida": "9",
+      "valor": 9
+    }
   ]
 }

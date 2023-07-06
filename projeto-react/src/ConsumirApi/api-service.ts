@@ -44,6 +44,25 @@ export function postProduto(nomeProd: string, valorProd: number, id: number) {
       });
   }
 
+  export function postCardapio(cardapio: any) {
+    api.post('/cardapio', cardapio)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  export function putCardapio(cardapio: any) {
+    api.put(`/cardapio/${cardapio.id}`, cardapio)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
 export default api;
 
